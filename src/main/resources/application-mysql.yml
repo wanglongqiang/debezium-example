@@ -1,0 +1,33 @@
+debezium:
+  name: debezium-connector
+  connector:
+    class: io.debezium.connector.mysql.MySqlConnector
+  offset:
+#    storage: org.apache.kafka.connect.storage.FileOffsetBackingStore
+#    storage.file.filename: ./offset-mysql.dat
+    storage: org.apache.kafka.connect.storage.KafkaOffsetBackingStore
+    storage.topic: debezium-connector-offset
+    storage.partitions: 1
+    storage.replication.factor: 1
+    flush.interval.ms: 60000
+  database:
+    server.name: dbzserver
+    server.id: 184054
+    hostname: localhost
+    port: 3316
+    user: debezium
+    password: dbz
+    history.kafka.bootstrap.servers: localhost:9092
+    history.kafka.topic: dbz-history
+  heartbeat:
+    interval.ms: 1000
+  kafka:
+    bootstrap.servers: localhost:9092
+  properties:
+    include.schema.changes: true
+table-change-topic:
+  name: table-change
+  partitions: 1
+  replication-factor: 1
+
+

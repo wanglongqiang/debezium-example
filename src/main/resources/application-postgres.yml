@@ -1,0 +1,32 @@
+debezium:
+  name: debezium-connector
+  connector:
+    class: io.debezium.connector.postgresql.PostgresConnector
+  offset:
+    #    storage: org.apache.kafka.connect.storage.FileOffsetBackingStore
+    #    storage.file.filename: ./offset-postgres.dat
+    storage: org.apache.kafka.connect.storage.KafkaOffsetBackingStore
+    storage.topic: debezium-connector-offset
+    storage.partitions: 1
+    storage.replication.factor: 1
+    flush.interval.ms: 60000
+  database:
+    server.name: dbzserver
+    hostname: localhost
+    port: 5432
+    user: postgres
+    password: postgres
+    dbname: postgres
+  heartbeat:
+    interval.ms: 1000
+  kafka:
+    bootstrap.servers: localhost:9092
+  properties:
+    plugin.name: pgoutput
+table-change-topic:
+  name: table-change
+  partitions: 1
+  replication-factor: 1
+
+
+
