@@ -12,5 +12,6 @@ public class MessageConsumer {
   @KafkaListener(topics = "${table-change-topic.name}")
   public void consume(ConsumerRecord<String, Message> record) {
     log.debug("Consumed :: key: {} | message {}", record.key(), record.value());
+    log.debug("develop");
   }
 }
